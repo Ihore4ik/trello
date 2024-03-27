@@ -4,12 +4,15 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FaPlus } from 'react-icons/fa6';
 import * as React from 'react';
+import { useAppDispatch } from '../store/features/store';
+import { addList } from '../store/features/listSlice';
 
 interface IFormData {
     name: string
 }
 
 function AddListModal() {
+    const dispatch = useAppDispatch();
     const [show, setShow] = useState(false);
     const [data, setData] = useState<IFormData>(
         { name: "" }
@@ -30,6 +33,7 @@ function AddListModal() {
     const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         handleClose()
+        dispatch(addList(data));
         console.log(data, "data")
     }
     return (

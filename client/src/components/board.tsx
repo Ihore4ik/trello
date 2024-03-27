@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { LISTS, TASKS } from "../assets/data/data";
 import { List } from "./list"
 import { ListT, CardT } from '../assets/common/types/types';
+import { useAppSelector } from '../store/features/store';
 
 function Board() {
-  const [lists, setLists] = useState<ListT[]>(LISTS);
+  const {lists} = useAppSelector(state=>state.lists)
+  // const [lists, setLists] = useState<ListT[]>(LISTS);
   const [tasks, setTasks] = useState<CardT[]>(TASKS);
   const [options, setOptions] = useState<string[]>(lists.map(el=>el.name));
   const getCurrentTasks = (title: string, array: CardT[]) => {
@@ -16,7 +18,7 @@ function Board() {
         id: Date.now(),
         name: text
       }]
-      setLists(newList);
+      // setLists(newList);
   }
   const setMove = (id: number, status: string) => {
     const newLists = tasks.map((item) => {
@@ -27,7 +29,7 @@ function Board() {
 
   const deleteList = (id:number)=>{
       const newList = lists.filter((list=>list.id !== id));
-      setLists(newList);
+      // setLists(newList);
       setOptions(newList.map(el=>el.name))
   }
   const deleteTask = (id:number)=>{

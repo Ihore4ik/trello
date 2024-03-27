@@ -1,48 +1,21 @@
-import { useState } from 'react';
-import { LISTS, TASKS } from "../assets/data/data";
-import { List } from "./list"
-import { ListT, CardT } from '../assets/common/types/types';
 import { useAppSelector } from '../store/features/store';
+import { ICard } from '../store/features/cardSlice';
+import { List } from "./list";
+
 
 function Board() {
-  const {lists} = useAppSelector(state=>state.lists)
-  // const [lists, setLists] = useState<ListT[]>(LISTS);
-  const [tasks, setTasks] = useState<CardT[]>(TASKS);
-  const [options, setOptions] = useState<string[]>(lists.map(el=>el.name));
-  const getCurrentTasks = (title: string, array: CardT[]) => {
-    return array.filter(el => el.status === title)
-  }
- 
-  const createList = (text:string) =>  {
-      const newList = [...lists,{
-        id: Date.now(),
-        name: text
-      }]
-      // setLists(newList);
-  }
-  const setMove = (id: number, status: string) => {
-    const newLists = tasks.map((item) => {
-      return item.id === id ? { ...item, status } : item
-    })
-    setTasks(newLists);
+  const { lists } = useAppSelector(state => state.lists);
+  const { cards } = useAppSelector(state => state.tasks);
+  const getCurrentTasks = (title: string, array: ICard[]) => {
+    return array.filter(el => el.status === title);
   }
 
-  const deleteList = (id:number)=>{
-      const newList = lists.filter((list=>list.id !== id));
-      // setLists(newList);
-      setOptions(newList.map(el=>el.name))
-  }
-  const deleteTask = (id:number)=>{
-    const newList = tasks.filter((task=>task.id !== id));
-    setTasks(newList);
-    console.log("delete")
-}
   return (
     <main>
       <div className=" flex pt-[150px] p-[20px] h-[100%] w-fit-content">
         {
           lists.map((item) =>
-            <List key={item.id} options={options} deleteTask={deleteTask} deleteList={deleteList} item={item} setMove={setMove} tasks={getCurrentTasks(item.name, tasks)} />
+            <List key={item.id} item={item} tasks={getCurrentTasks(item.name, cards)} />
           )
         }
       </div>

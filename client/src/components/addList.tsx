@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FaPlus } from 'react-icons/fa6';
-import * as React from 'react';
 import { useAppDispatch } from '../store/features/store';
 import { addList } from '../store/features/listSlice';
 
@@ -34,7 +33,6 @@ function AddListModal() {
         e.preventDefault();
         handleClose()
         dispatch(addList(data));
-        console.log(data, "data")
     }
     return (
         <>

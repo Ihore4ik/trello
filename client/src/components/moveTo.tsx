@@ -1,41 +1,22 @@
-// export const MoveTo = ({ status, id, setMove }: {
-//     status: string, id: number,
-//     setMove: (id: number, status: string) => void
-// }) => {
-//     const options = ["To Do", "In progress", "Planned", "Done", "X", "Pl"]
-//     return (
-//         <div className="moveTo">
-//             <select onChange={(e) => setMove(id, e.target.value)}>
-//                 {options.map(option =>
-//                     <option value={option}
-//                         key={option}
-//                         selected={option === status}
-
-//                     >{option}</option>)}
-//             </select>
-//         </div>
-//     )
-// }
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
+import { moveToList } from '../store/features/cardSlice';
+import { useAppDispatch, useAppSelector } from '../store/features/store';
 
-export const MoveTo = ({ status, id, setMove, options }: {
-    options: string[],
-    status: string, id: number,
-    setMove: (id: number, status: string) => void
-}) => {
+export const MoveTo = ({ status, id }: { status: string, id: number }) => {
+    const dispatch = useAppDispatch();
     const [value, setValue] = useState(status);
-    // const options = ["To Do", "In progress", "Planned", "Done", "X", "Pl"]
+    const { options } = useAppSelector(state => state.lists)
     const handleCheck = (event: { preventDefault: () => void; target: { value: string; }; }) => {
         event.preventDefault();
-        setMove(id, event.target.value);
+        dispatch(moveToList({ status: event.target.value, id }));
         setValue(event.target.value);
     }
-    
+
     return (
         <Form.Select aria-label="select-status" value={value} onChange={handleCheck}>
             {
-                options.map(item => <option key={item} >{item}</option>)
+                options.map((item) => <option key={item} >{item}</option>)
             }
         </Form.Select>
     );

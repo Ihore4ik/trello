@@ -5,16 +5,12 @@ import { FaHistory } from 'react-icons/fa';
 
 export const History = () => {
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     return (
-        <>
-            {/* <Button variant="primary" onClick={handleShow}>
-        Launch
-      </Button> */}
-            <Button onClick={handleShow} variant="outline-secondary" className="mr-2 p-3" style={{ display: "flex", alignItems: "center" }}>
+        <> 
+           <Button onClick={handleShow} variant="outline-secondary" className="mr-2 p-3" style={{ display: "flex", alignItems: "center" }}>
                 <FaHistory /> History
             </Button>
 

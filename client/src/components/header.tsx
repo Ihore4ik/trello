@@ -1,6 +1,7 @@
-import { Container, Navbar, Stack } from "react-bootstrap"
+import { Container, Navbar, Stack } from "react-bootstrap";
 import AddListModal from "./addList";
 import { History } from "./history";
+
 export const Header = () => {
    return (
       <header >

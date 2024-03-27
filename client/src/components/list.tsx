@@ -1,16 +1,10 @@
-import { Task } from "./cart"
-import AddCardModal from "./modal"
-import { CardT, ListT } from "../assets/common/types/types"
+import { Task } from "./card";
+import AddCardModal from "./modal";
+import { deleteList } from '../store/features/listSlice';
+import { CardT, ListT } from "../assets/common/types/types";
 import { OverLay } from "./overlay";
 
-export const List = ({ item, tasks, setMove, deleteList, deleteTask, options }:
-    {
-        item: ListT, tasks: CardT[],
-        options: string[],
-        setMove: (id: number, status: string) => void
-        deleteList: (id: number) => void,
-        deleteTask: (id: number) => void
-    }) => {
+export const List = ({ item, tasks }: { item: ListT, tasks: CardT[] }) => {
     const count = tasks.length;
     return (
         <div
@@ -23,21 +17,18 @@ export const List = ({ item, tasks, setMove, deleteList, deleteTask, options }:
                 </div>
                 <div className="flex items-center">
                     <span>{count}</span>
-                    <span className="cursor-pointer"><OverLay id={item.id} deleteItem={deleteList} /></span>
+                    <span className="cursor-pointer"><OverLay id={item.id} func={deleteList} /></span>
                 </div>
             </div>
             <div className="w-[100%] bg-gray-300 h-[3px]"></div>
             <div className="flex justify-center m-2">
-                <AddCardModal  />
+                <AddCardModal />
             </div>
             <div className="flex flex-col">
                 {
-                    tasks.map(task => <Task 
-                        options={options}
-                        deleteTask={deleteTask} 
-                        key={task.id} 
-                        card={task} 
-                        setMove={setMove} />)
+                    tasks.map(task => <Task
+                        key={task.id}
+                        card={task} />)
                 }
             </div>
         </div>

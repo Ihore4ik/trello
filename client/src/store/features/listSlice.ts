@@ -7,10 +7,12 @@ export interface List {
 
 interface Lists {
   lists: List[];
+  options: string[]
 }
 
 const initialState: Lists = {
   lists: LISTS,
+  options: LISTS.map(el=>el.name)
 };
 
 export const ListSlice = createSlice({
@@ -22,9 +24,14 @@ export const ListSlice = createSlice({
         id: Date.now(),
         name: action.payload.name,
       });
+      state.options = state.lists.map(el=>el.name);
     },
     deleteList: (state, action: PayloadAction<{ id: number }>) => {
-      state.lists.filter((item) => item.id !== action.payload.id);
+      const newLists = state.lists.filter(
+        (item) => item.id !== action.payload.id
+      );
+      state.lists = newLists;
+      state.options = state.lists.map(el=>el.name);
     },
   },
 });

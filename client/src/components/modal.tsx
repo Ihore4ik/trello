@@ -4,7 +4,6 @@ import Modal from 'react-bootstrap/Modal';
 
 function AddCardModal() {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -16,7 +15,7 @@ function AddCardModal() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Add New Card</Modal.Title>
         </Modal.Header>
         <Modal.Body>Add card</Modal.Body>
         <Modal.Footer>

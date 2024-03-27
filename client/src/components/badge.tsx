@@ -1,4 +1,4 @@
-import { Badge } from "react-bootstrap"
+import { Badge } from "react-bootstrap";
 
 export const Priority = ({ priority }: { priority: string }) => {
     const level = (priority === "Low")

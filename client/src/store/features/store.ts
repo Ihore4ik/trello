@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { TaskSlice } from "./cardSlice";
 import { ListSlice } from "./listSlice";
 
 export const store = configureStore({
     reducer: {
-        lists: ListSlice.reducer
+        lists: ListSlice.reducer,
+        tasks: TaskSlice.reducer,
     }
 })
 

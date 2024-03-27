@@ -11,49 +11,56 @@ export const TASKS = [
         name: "Some",
         description: "Lorem ipsum",
         priority: "Medium",
-        status: "To Do"
+        status: "To Do",
+        date: '2024-03-12'
     },
     {
         id: 2,
         name: "Some task",
         description: "Lorem ipsum",
         priority: "Low",
-        status: "Done"
+        status: "Done",
+        date: '2024-03-14'
     },
     {
         id: 3,
         name: "Another",
         description: "Lorem ipsum",
         priority: "High",
-        status: "In progress"
+        status: "In progress",
+        date: '2024-02-01'
     },
     {
         id: 7,
         name: "Wow",
         description: "Lorem ipsum",
         priority: "Medium",
-        status: "To Do"
+        status: "To Do",
+        date: '2024-03-23'
     },
     {
         id: 4,
         name: "Wow task",
         description: "Lorem ipsum",
         priority: "Low",
-        status: "Done"
+        status: "Done",
+        date: '2024-01-12'
     },
     {
         id: 5,
         name: "Another wow",
         description: "Lorem ipsum",
         priority: "High",
-        status: "In progress"
+        status: "In progress",
+        date: '2024-03-17'
     },
     {
         id: 6,
         name: "Task",
         description: "Lorem ipsum",
         priority: "Low",
-        status: "Planned"
+        status: "Planned",
+        date: '2024-01-10'
     },
     
 ];

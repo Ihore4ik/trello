@@ -6,6 +6,7 @@ export interface ICard {
   description: string;
   priority: string;
   status: string;
+  date: string;
 }
 
 export interface ICards {
@@ -32,12 +33,16 @@ export const TaskSlice = createSlice({
         description: string;
         priority: string;
         status: string;
+        date: string
       }>
     ) => {
       state.cards.push(action.payload);
     },
-    moveToList: (state, action: PayloadAction<{ status: string, id: number }>) => {
-       const newTasks = state.cards.map((item) =>
+    moveToList: (
+      state,
+      action: PayloadAction<{ status: string; id: number }>
+    ) => {
+      const newTasks = state.cards.map((item) =>
         item.id === action.payload.id
           ? { ...item, status: action.payload.status }
           : item

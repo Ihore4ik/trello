@@ -11,7 +11,7 @@ export const History = () => {
     return (
         <> 
            <Button onClick={handleShow} variant="outline-secondary" className="mr-2 p-3" style={{ display: "flex", alignItems: "center" }}>
-                <FaHistory /> History
+                <FaHistory className='mr-2'/> History
             </Button>
 
             <Offcanvas show={show} onHide={handleClose} placement="end" >

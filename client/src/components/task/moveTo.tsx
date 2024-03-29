@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import { moveToList } from '../store/features/cardSlice';
-import { useAppDispatch, useAppSelector } from '../store/features/store';
+import { moveToList } from '../../store/features/cardSlice';
+import { useAppDispatch, useAppSelector } from '../../store/features/store';
 
 export const MoveTo = ({ status, id }: { status: string, id: number }) => {
     const dispatch = useAppDispatch();

@@ -10,7 +10,7 @@ export const Header = () => {
                <Navbar.Brand href="#home" className="font-bold">My Task Board</Navbar.Brand>
                <Stack direction="horizontal" gap={2}>
                   <History />
-                  <AddListModal/>
+                  <AddListModal />
                </Stack>
             </Container>
          </Navbar>

@@ -5,18 +5,27 @@ import Button from 'react-bootstrap/Button';
 import Overlay from 'react-bootstrap/Overlay';
 import { DOTS } from '../assets/images/image';
 
-// setMove: (id: number, status: string) => void
-export const OverLay = ({ id, func }: { id: number, func: ({id}: {id:number})=> UnknownAction }) => {
+export const OverLay = ({ id, funcDelete, setIsEdit }:
+    {
+        id: number,
+        funcDelete: ({ id }: { id: number }) => UnknownAction,
+        setIsEdit: (arg0: boolean) => void,
+    }) => {
     const [show, setShow] = useState(false);
     const target = useRef(null);
     const dispatch = useAppDispatch();
+
+    const handleDelete = () => {
+        dispatch(funcDelete({ id }));
+        setShow(false);
+    }
 
     return (
         <>
             <Button variant="outline" ref={target} onClick={() => setShow(!show)}>
                 {DOTS}
             </Button>
-            <Overlay target={target.current} show={show} placement="right">
+            <Overlay target={target} show={show} placement="right" rootClose onHide={() => setShow(false)}>
                 {({
                     placement: _placement,
                     arrowProps: _arrowProps,
@@ -37,8 +46,8 @@ export const OverLay = ({ id, func }: { id: number, func: ({id}: {id:number})=> 
                         }}
                         className="flex flex-col"
                     >
-                        <Button variant='outline-primary'>Edit</Button>
-                        <Button variant='outline-danger' onClick={(() => dispatch(func( {id} )))}>Delete</Button>
+                        <Button variant='outline-primary' onClick={() => setIsEdit(true)}>Edit</Button>
+                        <Button variant='outline-danger' onClick={handleDelete}>Delete</Button>
                     </div>
                 )}
             </Overlay>

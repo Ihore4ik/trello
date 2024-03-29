@@ -1,6 +1,6 @@
 import { useAppSelector } from '../store/features/store';
 import { ICard } from '../store/features/cardSlice';
-import { List } from "./list";
+import { List } from "./list/list";
 
 
 function Board() {

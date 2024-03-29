@@ -10,3 +10,8 @@ export type CardT = {
   status: string;
   date: string;
 };
+
+export type ListEditT = {
+  id?: number;
+  isEdit: boolean;
+};

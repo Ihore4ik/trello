@@ -3,8 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FaPlus } from 'react-icons/fa6';
-import { useAppDispatch, useAppSelector } from '../store/features/store';
-import { addList } from '../store/features/listSlice';
+import { useAppDispatch, useAppSelector } from '../../store/features/store';
+import { addList } from '../../store/features/listSlice';
 
 interface IFormData {
     name: string
@@ -17,7 +17,6 @@ function AddListModal() {
     const [data, setData] = useState<IFormData>(
         { name: "" }
     );
-
     const handleClose = () => {
         setData({
             name: ""
@@ -41,9 +40,8 @@ function AddListModal() {
     return (
         <>
             <Button onClick={handleShow} variant="dark" className="p-3" style={{ display: "flex", alignItems: "center" }}>
-                <FaPlus /> Create new list
+                <FaPlus className='mr-2' /> Create new list
             </Button>
-
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add List</Modal.Title>

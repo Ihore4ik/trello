@@ -1,28 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { CreateListDto } from 'src/dto/listsDTO';
 import { List } from './lists.model';
 
 @Injectable()
 export class ListsService {
   constructor(@InjectModel(List) private listRepository: typeof List) {}
 
-  async createList(data: List) {
-    const list = await this.listRepository.create(data);
-    return list;
+  async createList(data: CreateListDto): Promise<List> {
+    return await this.listRepository.create<List>(data);
   }
 
-  async getLists() {
-    const lists = await this.listRepository.findAll();
-    return lists;
+  async getLists(): Promise<List[]> {
+    return await this.listRepository.findAll<List>();
   }
 
   async remove(id: number) {
     return this.listRepository.destroy({ where: { id } });
   }
 
-  async update(id: number, List) {
+  async update(id: number, data: List) {
     const [affectedCount, affectedRows] = await this.listRepository.update(
-      List,
+      data,
       {
         where: { id },
         returning: true,

@@ -1,21 +1,22 @@
-import { useAppSelector } from '../store/features/store';
-import { ICard } from '../store/features/cardSlice';
 import { List } from "./list/list";
-
+import { useGetListsQuery } from '../store/features/apiListSlice';
+import { useGetTasksQuery } from '../store/features/apiTaskSlice';
+import { Task } from "../assets/common/types/interfaces";
 
 function Board() {
-  const { lists } = useAppSelector(state => state.lists);
-  const { cards } = useAppSelector(state => state.tasks);
-  const getCurrentTasks = (title: string, array: ICard[]) => {
-    return array.filter(el => el.status === title);
+  const { data } = useGetListsQuery();
+  const { data: tasks, isSuccess } = useGetTasksQuery()
+  const getCurrentTasks = (title: string, array: Task[]) => {
+    if (isSuccess) {
+      return array.filter(el => el.status === title);
+    }
   }
-
   return (
     <main>
       <div className=" flex pt-[150px] p-[20px] h-[100%] w-fit-content">
         {
-          lists.map((item) =>
-            <List key={item.id} item={item} tasks={getCurrentTasks(item.name, cards)} />
+          data?.map((item: { id: any; name: any; }) =>
+            isSuccess && <List key={item.id} item={item} tasks={getCurrentTasks(item.name, tasks)} />
           )
         }
       </div>

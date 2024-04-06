@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { List } from './lists/lists.model';
 import { ListsModule } from './lists/lists.module';
 import { Task } from './tasks/tasks.model';
@@ -12,23 +10,33 @@ import { TasksModule } from './tasks/tasks.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['../.env'],
+      // envFilePath: ['.env'],
     }),
     SequelizeModule.forRoot({
-      dialect: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '12345',
-      database: 'task-board',
-      autoLoadModels: true,
-      synchronize: true,
-      models: [List, Task],
-    }),
+      // useFactory: (configService: ConfigService) => ({
+        dialect: 'postgres',
+        // host: configService.get<string>('POSTGRES_HOST'),
+        host: 'localhost',
+        // port: configService.get<number>('POSTGRES_PORT'),
+        port: 5432,
+        // username: configService.get<string>('POSTGRES_USER'),
+        username: 'postgres',
+        // database: configService.get<string>('POSTGRES_DB'),
+        database: 'task-board',
+        // password: configService.get<string>('POSTGRES_PASSWORD'),
+        password: '12345',
+        autoLoadModels: true,
+        synchronize: true,
+        models: [List, Task],
+      }),
+      // inject: [ConfigService],
+    // }),
     ListsModule,
     TasksModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  // controllers: [AppController],
+  providers: [],
+  // providers: [AppService],
 })
 export class AppModule {}

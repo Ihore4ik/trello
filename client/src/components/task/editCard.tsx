@@ -1,31 +1,21 @@
 import React, { useState } from 'react';
+import dayjs from 'dayjs';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useAppDispatch, useAppSelector } from '../../store/features/store';
-import { editTask } from '../../store/features/cardSlice';
+import { useAppSelector } from '../../store/features/store';
 import { CardT } from '../../assets/common/types/types';
-
-interface IFormData {
-  task: {
-    id: number;
-    name: string;
-    description: string;
-    priority: string;
-    status: string;
-    date: string;
-  }
-}
+import { useUpdateTaskMutation } from '../../store/features/apiTaskSlice';
+import { IFormDataCard } from '../../assets/common/types/interfaces';
 
 function AddCardModal({ card, show, handleClose }: {
   card: CardT, show: boolean,
   handleClose: () => void
 }) {
   const { options } = useAppSelector(state => state.lists);
-  const dispatch = useAppDispatch();
-  const [data, setData] = useState<IFormData>({
+  const [updateTask] = useUpdateTaskMutation();
+  const [data, setData] = useState<IFormDataCard>({
     task: {
-      id: card.id,
       name: card.name,
       description: card.description,
       priority: card.priority,
@@ -33,6 +23,7 @@ function AddCardModal({ card, show, handleClose }: {
       date: card.date,
     }
   });
+  const setDate = dayjs(data.task.date).format('YYYY-MM-DD');
 
   const onSetDate = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setData({
@@ -60,7 +51,7 @@ function AddCardModal({ card, show, handleClose }: {
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(editTask(data.task));
+    updateTask({ id: card.id, ...data.task });
   }
 
   return (
@@ -82,7 +73,7 @@ function AddCardModal({ card, show, handleClose }: {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formDate">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" value={data.task.date} onChange={onSetDate} />
+              <Form.Control type="date" value={setDate} onChange={onSetDate} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formPriority">
               <Form.Label>Priority</Form.Label>

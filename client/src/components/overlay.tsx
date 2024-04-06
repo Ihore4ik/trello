@@ -1,22 +1,20 @@
 import { useState, useRef } from 'react';
-import { UnknownAction } from '@reduxjs/toolkit';
-import { useAppDispatch } from '../store/features/store';
 import Button from 'react-bootstrap/Button';
 import Overlay from 'react-bootstrap/Overlay';
 import { DOTS } from '../assets/images/image';
 
-export const OverLay = ({ id, funcDelete, setIsEdit }:
+export const OverLay = ({ id, setIsEdit, funcDelete }:
     {
         id: number,
-        funcDelete: ({ id }: { id: number }) => UnknownAction,
+        funcDelete: (id: number) => void,
         setIsEdit: (arg0: boolean) => void,
     }) => {
+
     const [show, setShow] = useState(false);
     const target = useRef(null);
-    const dispatch = useAppDispatch();
 
     const handleDelete = () => {
-        dispatch(funcDelete({ id }));
+        funcDelete(id);
         setShow(false);
     }
 

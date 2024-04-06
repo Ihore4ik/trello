@@ -7,7 +7,6 @@ import {
   Post,
   Patch,
 } from '@nestjs/common';
-// import { CreateListDTO } from 'src/dto/create-list.dto';
 import { List } from './lists.model';
 import { ListsService } from './lists.service';
 
@@ -16,12 +15,12 @@ export class ListsController {
   constructor(private listService: ListsService) {}
 
   @Post()
-  create(@Body() data: List) {
+  create(@Body() data): Promise<List> {
     return this.listService.createList(data);
   }
 
   @Get()
-  getAll() {
+  getAll(): Promise<List[]> {
     return this.listService.getLists();
   }
 

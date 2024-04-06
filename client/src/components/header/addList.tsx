@@ -3,37 +3,34 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FaPlus } from 'react-icons/fa6';
-import { useAppDispatch, useAppSelector } from '../../store/features/store';
-import { addList } from '../../store/features/listSlice';
+import { useAddListMutation } from '../../store/features/apiListSlice';
+import { IFormData } from '../../assets/common/types/interfaces';
 
-interface IFormData {
-    name: string
-}
+
 
 function AddListModal() {
-    const dispatch = useAppDispatch();
-    const { options } = useAppSelector(state => state.lists);
+    const [addList] = useAddListMutation();
     const [show, setShow] = useState(false);
-    const [data, setData] = useState<IFormData>(
+    const [value, setValue] = useState<IFormData>(
         { name: "" }
     );
     const handleClose = () => {
-        setData({
+        setValue({
             name: ""
         });
         setShow(false);
     }
     const handleShow = () => setShow(true);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setData({
+        setValue({
             name: e.target.value
         })
     }
     const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (data.name.trim() !== "" && !options.includes(data.name)) {
+        if (value.name.trim() !== "") {
+            addList(value);
             handleClose()
-            dispatch(addList(data));
         }
 
     }
@@ -54,7 +51,7 @@ function AddListModal() {
                                 id="floatingInputCustom"
                                 type="name"
                                 placeholder="Name of list"
-                                value={data.name}
+                                value={value.name}
                             />
                             <label htmlFor="floatingInputCustom">List name</label>
                         </Form.Floating>

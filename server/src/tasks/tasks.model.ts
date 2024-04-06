@@ -5,6 +5,7 @@ interface TaskCreationAttr {
   description: string;
   priority: string;
   status: string;
+  date: Date;
 }
 
 @Table({ tableName: 'tasks' })
@@ -28,4 +29,7 @@ export class Task extends Model<Task, TaskCreationAttr> {
 
   @Column({ type: DataType.STRING, unique: false, allowNull: false })
   status: string;
+
+  @Column({ type: DataType.DATE, unique: false, allowNull: false })
+  date: Date;
 }

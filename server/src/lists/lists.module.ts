@@ -5,11 +5,8 @@ import { List } from './lists.model';
 import { ListsService } from './lists.service';
 
 @Module({
-  imports: [
-    SequelizeModule.forFeature([List])
-  ],
-  controllers: [ListsController],
+  imports: [SequelizeModule.forFeature([List])],
   providers: [ListsService],
-  
+  controllers: [ListsController],
 })
 export class ListsModule {}

@@ -13,6 +13,6 @@ export class List extends Model<List, ListCreationAttr> {
     primaryKey: true,
   })
   id: number;
-  @Column({ type: DataType.STRING, unique: true, allowNull: false })
+  @Column({ type: DataType.STRING, unique: true, allowNull: false, primaryKey: false })
   name: string;
 }

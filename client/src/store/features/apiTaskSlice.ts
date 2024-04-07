@@ -31,6 +31,14 @@ export const apiTaskSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Task"],
     }),
+    moveToList: builder.mutation<void, Pick<Task, "id"> & Partial<Task>>({
+      query: ({ id, ...patch }) => ({
+        url: `/tasks/${id}`,
+        method: "PATCH",
+        body: patch,
+      }),
+      invalidatesTags: ["Task"],
+    }),
   }),
   overrideExisting: false,
 });
@@ -40,4 +48,5 @@ export const {
   useAddTaskMutation,
   useDeleteTaskMutation,
   useUpdateTaskMutation,
+  useMoveToListMutation
 } = apiTaskSlice;

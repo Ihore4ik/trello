@@ -16,7 +16,7 @@ function Board() {
       <div className=" flex pt-[150px] p-[20px] h-[100%] w-fit-content">
         {
           data?.map((item: { id: any; name: any; }) =>
-            isSuccess && <List key={item.id} item={item} tasks={getCurrentTasks(item.name, tasks)} />
+            isSuccess && <List key={item.id} options={data} item={item} tasks={getCurrentTasks(item.name, tasks)} />
           )
         }
       </div>

@@ -30,4 +30,15 @@ export class TasksService {
     );
     return [affectedCount, affectedRows as Task[]];
   }
+
+  async moveTo(id: number, data: Task) {
+    const [affectedCount, affectedRows] = await this.taskRepository.update(
+      data,
+      {
+        where: { id },
+        returning: true,
+      },
+    );
+    return [affectedCount, affectedRows as Task[]];
+  }
 }

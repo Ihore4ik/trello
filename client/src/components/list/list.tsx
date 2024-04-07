@@ -3,8 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { useUpdateListMutation, useDeleteListMutation } from "../../store/features/apiListSlice";
 import { useAddTaskMutation } from "../../store/features/apiTaskSlice";
 import { Task } from "../task/card";
-import { ListT } from "../../assets/common/types/types";
-import { Task as Card } from "../../assets/common/types/interfaces";
+import { IList, Task as Card } from "../../assets/common/types/interfaces";
 import { OverLay } from "../overlay";
 
 const task = (status: string) => {
@@ -17,7 +16,7 @@ const task = (status: string) => {
     }
 }
 
-export const List = ({ item, tasks }: { item: ListT, tasks: Card[] | undefined }) => {
+export const List = ({ item, tasks, options }: { item: IList, tasks: Card[] | undefined,options: IList[] }) => {
     const count = tasks?.length;
     const [value, setValue] = useState(item.name);
     const [isEdit, setIsEdit] = useState(false);
@@ -67,7 +66,9 @@ export const List = ({ item, tasks }: { item: ListT, tasks: Card[] | undefined }
                 {
                     tasks && tasks.map(task => <Task
                         key={task.id}
-                        card={task} />)
+                        card={task} 
+                        options={options}
+                        />)
                 }
             </div>
         </div>

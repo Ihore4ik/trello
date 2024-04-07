@@ -1,22 +1,22 @@
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import { moveToList } from '../../store/features/cardSlice';
-import { useAppDispatch, useAppSelector } from '../../store/features/store';
+import { IList } from '../../assets/common/types/interfaces';
+import { useMoveToListMutation } from '../../store/features/apiTaskSlice';
 
-export const MoveTo = ({ status, id }: { status: string, id: number }) => {
-    const dispatch = useAppDispatch();
+export const MoveTo = ({ status, id, options }: { status: string, id: number, options: IList[] }) => {
+ 
+    const [moveToList] = useMoveToListMutation();
     const [value, setValue] = useState(status);
-    const { options } = useAppSelector(state => state.lists)
     const handleCheck = (event: { preventDefault: () => void; target: { value: string; }; }) => {
         event.preventDefault();
-        dispatch(moveToList({ status: event.target.value, id }));
+        moveToList({ id, status: event.target.value });
         setValue(event.target.value);
     }
 
     return (
         <Form.Select aria-label="select-status" value={value} onChange={handleCheck}>
             {
-                options.map((item) => <option key={item} >{item}</option>)
+                options.map((item) => <option key={item.id} >{item.name}</option>)
             }
         </Form.Select>
     );

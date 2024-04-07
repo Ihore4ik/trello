@@ -3,16 +3,15 @@ import dayjs from 'dayjs';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useAppSelector } from '../../store/features/store';
 import { CardT } from '../../assets/common/types/types';
 import { useUpdateTaskMutation } from '../../store/features/apiTaskSlice';
 import { IFormDataCard } from '../../assets/common/types/interfaces';
 
-function AddCardModal({ card, show, handleClose }: {
+function AddCardModal({ card, show, handleClose, options }: {
   card: CardT, show: boolean,
-  handleClose: () => void
+  handleClose: () => void,
+  options: string[]
 }) {
-  const { options } = useAppSelector(state => state.lists);
   const [updateTask] = useUpdateTaskMutation();
   const [data, setData] = useState<IFormDataCard>({
     task: {

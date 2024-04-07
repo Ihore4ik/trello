@@ -27,4 +27,9 @@ export class TasksController {
   updateTask(@Param('id') id: string, @Body() data: Task) {
     return this.taskService.update(Number(id), data);
   }
+
+  @Patch(':id')
+  moveTo(@Param('id') id: string, @Body() data: Task) {
+    return this.taskService.update(Number(id), data);
+  }
 }
